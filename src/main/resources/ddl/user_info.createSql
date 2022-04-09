@@ -1,0 +1,11 @@
+CREATE TABLE `user_info` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_age` int DEFAULT NULL,
+  `user_score` bigint DEFAULT NULL,
+  `user_slary` double(20,10) DEFAULT NULL,
+  `user_sex` char(2) DEFAULT NULL,
+  `create_time` date DEFAULT NULL,
+  `update_time` date DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
