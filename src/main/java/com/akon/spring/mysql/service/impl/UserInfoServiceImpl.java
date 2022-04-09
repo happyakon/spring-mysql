@@ -4,17 +4,19 @@ import com.akon.spring.mysql.entity.UserInfo;
 import com.akon.spring.mysql.model.UserInfoMapper;
 import com.akon.spring.mysql.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Options;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import java.util.Date;
+
 @Service
 @Slf4j
 public class UserInfoServiceImpl implements UserInfoService {
 
-    @Autowired
+    @Resource
     private UserInfoMapper mapper;
 
     @Override
@@ -80,6 +82,13 @@ public class UserInfoServiceImpl implements UserInfoService {
         try {
             userInfo = mapper.selectByPrimaryKey(userId);
             log.info("init userInfo:"+userInfo);
+            Thread.sleep(3000l);
+            UserInfo record=new UserInfo();
+            record.setUserId(1);
+            record.setUserName("马六");
+            record.setCreateTime(new Date());
+            record.setUpdateTime(new Date());
+            mapper.updateByPrimaryKey(record);
             Thread.sleep(4500l);
             userInfo = mapper.selectByPrimaryKey(userId);
             log.info("first userInfo:"+userInfo);
