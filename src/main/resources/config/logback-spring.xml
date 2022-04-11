@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="false">
+
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} [%thread] [%logger{50}] - %msg%n"/>
+    <property name="log.path" value="${LOG_PATH:-.}" />
+
+    <!-- 控制台打印日志的相关配置 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 日志格式 -->
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE-INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--记录的日志文件的路径及文件名-->
+        <file>${log.path}/app.log</file>
+        <!--日志文件输出格式-->
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <!--记录的日志级别-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 按天轮转（按天 月 年 是根据这个配置的表达式推算出来的） -->
+            <fileNamePattern>${log.path}/app.log-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 每个文件最大是多少 -->
+            <maxFileSize>20MB</maxFileSize>
+            <!-- 最多保留20个轮状周期 比如：按天 保留20天 -->
+            <maxHistory>20</maxHistory>
+            <!-- 所有归档文档总大小，maxHistory作为第一条件，此作为第二条件来删除旧文件 -->
+            <totalSizeCap>200MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="SERVICE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--记录的日志文件的路径及文件名-->
+        <file>${log.path}/service.log</file>
+        <!--日志文件输出格式-->
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <!--记录的日志级别-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 按天轮转（按天 月 年 是根据这个配置的表达式推算出来的） -->
+            <fileNamePattern>${log.path}/service.log-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 每个文件最大是多少 -->
+            <maxFileSize>20MB</maxFileSize>
+            <!-- 最多保留20个轮状周期 比如：按天 保留20天 -->
+            <maxHistory>20</maxHistory>
+            <!-- 所有归档文档总大小，maxHistory作为第一条件，此作为第二条件来删除旧文件 -->
+            <totalSizeCap>200MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="SQL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--记录的日志文件的路径及文件名-->
+        <file>${log.path}/sql.log</file>
+        <!--日志文件输出格式-->
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <!--记录的日志级别-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 按天轮转（按天 月 年 是根据这个配置的表达式推算出来的） -->
+            <fileNamePattern>${log.path}/sql.log-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 每个文件最大是多少 -->
+            <maxFileSize>20MB</maxFileSize>
+            <!-- 最多保留20个轮状周期 比如：按天 保留20天 -->
+            <maxHistory>20</maxHistory>
+            <!-- 所有归档文档总大小，maxHistory作为第一条件，此作为第二条件来删除旧文件 -->
+            <totalSizeCap>200MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <!-- 将model包(sql)下的日志分离出来 设置异步打印 -->
+    <appender name="ASYN_SQL_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="SQL_FILE"/>
+    </appender>
+
+    <!-- 设置异步打印，提高打印效率 -->
+    <appender name="ASYN_FILE-INFO" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE-INFO"/>
+    </appender>
+    <!-- 将service包下的日志分离出来 设置异步打印，提高打印效率 -->
+    <appender name="ASYN_SERVICE_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="SERVICE_FILE"/>
+    </appender>
+    <!-- 将model包(sql)下的日志分离出来 并且异步打印，提高打印效率 -->
+    <logger name="com.akon.spring.mysql.model" additivity="false">
+        <appender-ref ref="ASYN_SQL_FILE"/>
+    </logger>
+    <!-- 将service包下的日志分离出来 并且异步打印，提高打印效率 -->
+    <logger name="com.akon.spring.mysql.service"  additivity="false" >
+        <appender-ref ref="ASYN_SERVICE_FILE"/>
+    </logger>
+
+    <root>
+<!--        <appender-ref ref="STDOUT"/>-->
+        <appender-ref ref="ASYN_FILE-INFO"/>
+    </root>
+</configuration>
