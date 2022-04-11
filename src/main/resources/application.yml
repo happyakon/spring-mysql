@@ -4,6 +4,11 @@ server:
     context-path: /spring-mysql
 
 spring:
+  application:
+    name: zk-spring-mysql
+  cloud:
+    zookeeper:
+      connect-string: 192.168.2.109:2181
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.2.108:3306/akon_dev?useUnicode=true&characterEncoding=utf-8

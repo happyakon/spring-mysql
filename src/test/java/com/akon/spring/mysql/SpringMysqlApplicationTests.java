@@ -69,4 +69,58 @@ class SpringMysqlApplicationTests {
         }
     }
 
+    @Test
+    public void phantomRead(){
+        UserInfo user1=new UserInfo();
+        user1.setUserName("张三T2");
+        user1.setUserId(18);
+        user1.setUpdateTime(new Date());
+        user1.setCreateTime(new Date());
+        UserInfo user2=new UserInfo();
+        user2.setUserName("李四T2");
+        user2.setUserId(18);
+        user2.setUpdateTime(new Date());
+        user2.setCreateTime(new Date());
+        Thread thread1=new Thread(()->
+                service.insert1(user1)
+                ,"t1");
+        Thread thread2=new Thread(()->
+                service.insert1(user2)
+                ,"t2");
+        thread1.start();
+        thread2.start();
+        try {
+            Thread.sleep(20000l);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void phantomReadForUpdate(){
+        UserInfo user1=new UserInfo();
+        user1.setUserName("张三T2");
+        user1.setUserId(13);
+        user1.setUpdateTime(new Date());
+        user1.setCreateTime(new Date());
+        UserInfo user2=new UserInfo();
+        user2.setUserName("李四T2");
+        user2.setUserId(13);
+        user2.setUpdateTime(new Date());
+        user2.setCreateTime(new Date());
+        Thread thread1=new Thread(()->
+                service.update4(user1)
+                ,"t1");
+        Thread thread2=new Thread(()->
+                service.update5(user2)
+                ,"t2");
+        thread1.start();
+        thread2.start();
+        try {
+            Thread.sleep(20000l);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

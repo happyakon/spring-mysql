@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan(basePackages = "com.akon.spring.mysql.model")
+
 public class SpringMysqlApplication {
 
     public static void main(String[] args) {

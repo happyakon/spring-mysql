@@ -28,7 +28,7 @@ public class MybatisConfig {
          * 关闭一级缓存
          */
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        configuration.setLocalCacheScope(LocalCacheScope.STATEMENT);
+        configuration.setLocalCacheScope(LocalCacheScope.SESSION);
         bean.setConfiguration(configuration);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         String path ="classpath*:com/akon/spring/mysql/mapper/*Mapper.xml";

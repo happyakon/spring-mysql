@@ -78,6 +78,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
     public UserInfo select(Integer userId) {
+        //幻读
         UserInfo userInfo=null;
         try {
             userInfo = mapper.selectByPrimaryKey(userId);
@@ -99,5 +100,69 @@ public class UserInfoServiceImpl implements UserInfoService {
             e.printStackTrace();
         }
         return userInfo;
+    }
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Override
+    public String insert1(UserInfo record) {
+        int insert= 0;
+        try {
+            UserInfo userInfo = mapper.selectByPrimaryKey(record.getUserId());
+            log.info(Thread.currentThread().getName()+" userInfo:"+userInfo);
+            Thread.sleep(3000l);
+            if(userInfo==null)
+            insert= mapper.insert(record);
+            log.info(Thread.currentThread().getName()+" 更新成功");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return insert>0?"success":"fail";
+    }
+
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Override
+    public String insert2(UserInfo record) {
+        int insert= 0;
+        try {
+            Thread.sleep(2000l);
+            UserInfo userInfo = mapper.selectByPrimaryKey(record.getUserId());
+            log.info(Thread.currentThread().getName()+" userInfo:"+userInfo);
+            if(userInfo==null)
+            insert= mapper.insert(record);
+            log.info(Thread.currentThread().getName()+" 更新成功");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return insert>0?"success":"fail";
+    }
+
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Override
+    public String update4(UserInfo record) {
+        int update= 0;
+        try {
+            UserInfo userInfo = mapper.selectByPrimaryKey(record.getUserId());
+            log.info(Thread.currentThread().getName()+" userInfo:"+userInfo);
+            Thread.sleep(3000l);
+            update= mapper.updateByPrimaryKey(record);
+            log.info(Thread.currentThread().getName()+" 更新成功");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return update>0?"success":"fail";
+    }
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Override
+    public String update5(UserInfo record) {
+        int update= 0;
+        try {
+            Thread.sleep(2000l);
+            UserInfo userInfo = mapper.selectByPrimaryKey(record.getUserId());
+            log.info(Thread.currentThread().getName()+" userInfo:"+userInfo);
+            update= mapper.updateByPrimaryKey(record);
+            log.info(Thread.currentThread().getName()+" 更新成功");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return update>0?"success":"fail";
     }
 }
