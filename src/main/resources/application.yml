@@ -16,29 +16,17 @@ spring:
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-
       initial-size: 10
-
       min-idle: 10
-
       max-active: 20
-
       max-wait: 6000
-
       validation-query: select 1 from dual
-
       time-between-eviction-runs-millis: 60000
-
       min-evictable-idle-time-millis: 30000
-
       test-while-idle: true
-
       test-on-borrow: false
-
       test-on-return: false
-
       pool-prepared-statements: false
-
       max-open-prepared-statements: -1
 
 mybatis:
