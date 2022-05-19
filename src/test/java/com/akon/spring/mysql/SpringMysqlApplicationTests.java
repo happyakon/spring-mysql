@@ -22,7 +22,7 @@ class SpringMysqlApplicationTests {
         user.setUserAge(33);
         user.setUserScore(324l);
         user.setUserSex("F");
-        user.setUserSlary(12.435d);
+        user.setUserSalary(12.435d);
         user.setCreateTime(new Date());
         user.setUpdateTime(new Date());
         String result = service.insert(user);

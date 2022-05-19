@@ -105,7 +105,7 @@
     </logger>
 
     <root>
-<!--        <appender-ref ref="STDOUT"/>-->
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="ASYN_FILE-INFO"/>
     </root>
 </configuration>

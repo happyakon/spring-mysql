@@ -6,13 +6,13 @@
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="user_age" jdbcType="INTEGER" property="userAge" />
     <result column="user_score" jdbcType="BIGINT" property="userScore" />
-    <result column="user_slary" jdbcType="DOUBLE" property="userSlary" />
+    <result column="user_salary" jdbcType="DOUBLE" property="userSalary" />
     <result column="user_sex" jdbcType="CHAR" property="userSex" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    user_id, user_name, user_age, user_score, user_slary, user_sex, create_time, update_time
+    user_id, user_name, user_age, user_score, user_salary, user_sex, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -22,10 +22,10 @@
   </select>
   <insert id="insert" parameterType="com.akon.spring.mysql.entity.UserInfo">
     insert into user_info (user_id, user_name, user_age, 
-      user_score, user_slary, user_sex, 
+      user_score, user_salary, user_sex, 
       create_time, update_time)
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userAge,jdbcType=INTEGER}, 
-      #{userScore,jdbcType=BIGINT}, #{userSlary,jdbcType=DOUBLE}, #{userSex,jdbcType=CHAR}, 
+      #{userScore,jdbcType=BIGINT}, #{userSalary,jdbcType=DOUBLE}, #{userSex,jdbcType=CHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.akon.spring.mysql.entity.UserInfo">
@@ -43,8 +43,8 @@
       <if test="userScore != null">
         user_score,
       </if>
-      <if test="userSlary != null">
-        user_slary,
+      <if test="userSalary != null">
+        user_salary,
       </if>
       <if test="userSex != null">
         user_sex,
@@ -69,8 +69,8 @@
       <if test="userScore != null">
         #{userScore,jdbcType=BIGINT},
       </if>
-      <if test="userSlary != null">
-        #{userSlary,jdbcType=DOUBLE},
+      <if test="userSalary != null">
+        #{userSalary,jdbcType=DOUBLE},
       </if>
       <if test="userSex != null">
         #{userSex,jdbcType=CHAR},
@@ -95,8 +95,8 @@
       <if test="userScore != null">
         user_score = #{userScore,jdbcType=BIGINT},
       </if>
-      <if test="userSlary != null">
-        user_slary = #{userSlary,jdbcType=DOUBLE},
+      <if test="userSalary != null">
+        user_salary = #{userSalary,jdbcType=DOUBLE},
       </if>
       <if test="userSex != null">
         user_sex = #{userSex,jdbcType=CHAR},
@@ -115,7 +115,7 @@
     set user_name = #{userName,jdbcType=VARCHAR},
       user_age = #{userAge,jdbcType=INTEGER},
       user_score = #{userScore,jdbcType=BIGINT},
-      user_slary = #{userSlary,jdbcType=DOUBLE},
+      user_salary = #{userSalary,jdbcType=DOUBLE},
       user_sex = #{userSex,jdbcType=CHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}

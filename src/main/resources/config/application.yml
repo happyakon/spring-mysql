@@ -8,10 +8,10 @@ spring:
     name: zk-spring-mysql
   cloud:
     zookeeper:
-      connect-string: 192.168.2.109:2181
+      connect-string: 47.101.203.160:2181
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.2.108:3306/akon_dev?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://279fs67493.wicp.vip:21229/akon_dev?useUnicode=true&characterEncoding=utf-8
     username: root
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource

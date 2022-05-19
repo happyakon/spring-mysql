@@ -11,7 +11,7 @@ public class UserInfo {
 
     private Long userScore;
 
-    private Double userSlary;
+    private Double userSalary;
 
     private String userSex;
 
@@ -51,12 +51,12 @@ public class UserInfo {
         this.userScore = userScore;
     }
 
-    public Double getUserSlary() {
-        return userSlary;
+    public Double getUserSalary() {
+        return userSalary;
     }
 
-    public void setUserSlary(Double userSlary) {
-        this.userSlary = userSlary;
+    public void setUserSalary(Double userSalary) {
+        this.userSalary = userSalary;
     }
 
     public String getUserSex() {
@@ -90,7 +90,7 @@ public class UserInfo {
                 ", userName='" + userName + '\'' +
                 ", userAge=" + userAge +
                 ", userScore=" + userScore +
-                ", userSlary=" + userSlary +
+                ", userSlary=" + userSalary +
                 ", userSex='" + userSex + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
